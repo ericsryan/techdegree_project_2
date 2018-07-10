@@ -62,18 +62,14 @@ class Transposition:
             letter_list_1 = letter_list[:int(len(letter_list) / 4)]
             letter_list_2 = letter_list[int(len(letter_list) / 4):-int(len(letter_list) / 4)]
             letter_list_3 = letter_list[-int(len(letter_list) / 4):]
-        elif len(letter_list) % 4 == 1:
+        elif len(letter_list) % 4 == 1 or len(letter_list) % 4 == 2:
             letter_list_1 = letter_list[:int(len(letter_list) / 4) + 1]
-            letter_list_2 = letter_list[int(len(letter_list) / 4 + 1):-int(len(letter_list) / 4)]
-            letter_list_3 = letter_list[-int(len(letter_list) / 4):]
-        elif len(letter_list) % 4 == 2:
-            letter_list_1 = letter_list[:int((len(letter_list) / 4) + 1)]
-            letter_list_2 = letter_list[int((len(letter_list) / 4) + 1):-int(len(letter_list) / 4)]
+            letter_list_2 = letter_list[int(len(letter_list) / 4) + 1:-int(len(letter_list) / 4)]
             letter_list_3 = letter_list[-int(len(letter_list) / 4):]
         elif len(letter_list) % 4 == 3:
             letter_list_1 = letter_list[:int(len(letter_list) / 4) + 1]
             letter_list_2 = letter_list[int(len(letter_list) / 4) + 1:-int((len(letter_list) / 4) + 1)]
-            letter_list_3 = letter_list[-int((len(letter_list) / 4) + 1):]
+            letter_list_3 = letter_list[-int(len(letter_list) / 4) + 1:]
         counter_1 = 0
         counter_2 = 0
         for i in range(int(len(letter_list) / 4)):

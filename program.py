@@ -1,5 +1,4 @@
 import os
-import pdb
 import string
 from one_time_pad import OneTimePad
 from keyword_cipher import Keyword
@@ -22,8 +21,9 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def draw_screen():
+    clear_screen()
     print('_' * 60 + '\n\n' + ' ' * 15 + 'Welcome to the \
-    Cryptographer!\n' + '_' * 60 + '\n')
+Cryptographer!\n' + '_' * 60 + '\n')
     if cipher:
         print("Cipher:", cipher)
     if encrypt_decrypt:
@@ -36,6 +36,7 @@ def draw_screen():
         print("{}ed Message:".format(encrypt_decrypt), output)
 
 def select_cipher():
+    draw_screen()
     print('    Ciphers available:')
     print(
     """
@@ -53,7 +54,6 @@ def select_cipher():
         elif cipher[0].upper() == 'P':
             cipher = 'Polybius'
         else:
-            clear_screen()
             draw_screen()
             print('    Ciphers available:')
             print(
@@ -65,7 +65,9 @@ def select_cipher():
                 """)
             cipher = input("    That is not one of the available ciphers. \n    Which cipher would you like to use? ")
     return cipher
+
 def select_encrypt_decrypt():
+    draw_screen()
     encrypt_decrypt = input("    Would you like to encrypt or decrypt your message? ")
     if encrypt_decrypt[0].upper() == 'E':
         encrypt_decrypt = 'Encrypt'
@@ -74,8 +76,10 @@ def select_encrypt_decrypt():
     return encrypt_decrypt
 
 def select_message():
+    draw_screen()
     message = input("    What is the message you would like to {}".format(encrypt_decrypt.lower()))
     return message
+
 def blocks_of_five(message):
     message = message.upper()
     block_message = []
@@ -97,22 +101,32 @@ def blocks_of_five(message):
     print(''.join(block_message))
 
 def select_pad():
-    pad_option = input("    Would you like to use a one time pad? \
+    draw_screen()
+    pad_option = input("    Would you like to use a one time pad? \n\
     If you do you may enter it now or press 'Enter' to continue without one: ")
-    return pad_option
 
 def select_block():
+    draw_screen()
     block_option = input("    Would you like to format your message into blocks \
-    of five? If you do you will lose the spaces and punctuation in your \
-    message. Y/N? ")
+of five? If you do you will lose the spaces and punctuation in your \
+message. Y/N? ")
+    return block_option
 
 def continue_quit():
+    draw_screen()
     continue_quit = input("    Would you like to use another cipher? If you do enter 'Y' or enter 'Q' to quit: ")
 
 
 
+if __name__ == "__main__":
 
-
+    cipher = select_cipher()
+    encrypt_decrypt = select_encrypt_decrypt()
+    select_pad()
+    select_block()
+    message = select_message()
+    continue_quit()
+    draw_screen()
 """
 To Do:
 
