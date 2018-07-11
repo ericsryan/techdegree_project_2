@@ -45,8 +45,8 @@ def select_cipher():
     -Polybius
 
         """)
-    cipher = input("    Which cipher would you like to use? ")
     while cipher[0] not in 'TKP':
+        cipher = input("    Which cipher would you like to use? ")
         if cipher[0].upper() == 'T':
             cipher = 'Transposition'
         elif cipher[0].upper() == 'K':
@@ -63,8 +63,7 @@ def select_cipher():
     -Polybius
 
                 """)
-            cipher = input("    That is not one of the available ciphers. \n    Which cipher would you like to use? ")
-    return cipher
+            cipher = input("That is not one of the available ciphers. \nWhich cipher would you like to use? ")
 
 def select_encrypt_decrypt():
     draw_screen()
@@ -118,15 +117,7 @@ def continue_quit():
 
 
 
-if __name__ == "__main__":
 
-    cipher = select_cipher()
-    encrypt_decrypt = select_encrypt_decrypt()
-    select_pad()
-    select_block()
-    message = select_message()
-    continue_quit()
-    draw_screen()
 """
 To Do:
 
