@@ -67,7 +67,7 @@ if __name__ == '__main__':
     elif encrypt_decrypt[0].upper() == 'D':
         encrypt_decrypt = 'Decrypt'
     draw_screen()
-    pad_option = input("\nWould you like to use a one time pad? \nIf yes, enter one now or press 'Enter' to continue: ")
+    pad_option = input("\nWould you like to use a one time pad? \nIf yes, enter one now or press 'Enter' to continue. \nOnly letters and numbers will be used for the pad: ")
     draw_screen()
     block_option = input("\nWould you like your message formatted into blocks of five characters? Y/N: ")
     draw_screen()
@@ -107,8 +107,3 @@ if __name__ == '__main__':
     draw_screen()
     print("Here is your {}ed message: \n".format(encrypt_decrypt.lower()))
     print(output)
-    continue_quit = input("Would you like to use another cipher? \nIf you do, enter 'Y' or enter 'Q' to quit: ")
-    if continue_quit.upper() == 'Y':
-        return True
-    else:
-        return False

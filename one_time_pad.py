@@ -12,10 +12,14 @@ class OneTimePad(Cipher):
 
     def encrypt(self, pad, message):
         message = message.upper()
-        full_pad = pad.upper()
+        new_pad = pad.upper()
+        full_pad = ''
         encrypted_char_list = []
         encrypted_message = ''
         pad_index = 0
+        for character in new_pad:
+            if character in string.ascii_uppercase + string.digits:
+                full_pad += character
         if len(full_pad) < len(message):
             multiply_by = len(message) / len(full_pad)
             full_pad = full_pad * (int(multiply_by) + 1)
