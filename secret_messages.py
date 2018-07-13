@@ -29,7 +29,6 @@ Cryptographer!\n' + '_' * 60 + '\n')
         print("Original message:", message)
 
 def ciphers_available():
-    draw_screen()
     print('    Ciphers available:')
     print(
     """
@@ -76,6 +75,7 @@ if __name__ == '__main__':
         keyword = ''
         message = ''
         output = ''
+        draw_screen()
         ciphers_available()
         cipher = input("Which cipher would you like to use today? ")
         while cipher[0] not in 'TKP':
@@ -89,17 +89,25 @@ if __name__ == '__main__':
                 cipher = ''
                 draw_screen()
                 ciphers_available()
-                cipher = input("That is not one of the available ciphers. \nWhich cipher would you like to use? ")
+                cipher = input("\nThat is not one of the available ciphers. \nWhich cipher would you like to use? ")
         draw_screen()
         encrypt_decrypt = input("\nWould you like to encrypt or decrypt your message? ")
-        if encrypt_decrypt[0].upper() == 'E':
-            encrypt_decrypt = 'Encrypt'
-        elif encrypt_decrypt[0].upper() == 'D':
-            encrypt_decrypt = 'Decrypt'
+        while encrypt_decrypt[0] not in 'ED':
+            if encrypt_decrypt[0].upper() == 'E':
+                encrypt_decrypt = 'Encrypt'
+            elif encrypt_decrypt[0].upper() == 'D':
+                encrypt_decrypt = 'Decrypt'
+            else:
+                encrypt_decrypt = ''
+                draw_screen()
+                encrypt_decrypt = input("\nSorry, I didn't get that. \nWould you like to encrypt or decrypt your message? ")
         draw_screen()
         pad_option = input("\nWould you like to use a one time pad? \nIf yes, enter one now or press 'Enter' to continue. \nOnly letters and numbers will be used for the pad: ")
         draw_screen()
-        block_option = input("\nWould you like your message formatted into blocks of five characters? Y/N: ")
+        if cipher == 'Keyword' and encrypt_decrypt == 'Encrypt':
+            block_option = input("\nWould you like your encrypted message formatted into blocks of five characters? Y/N: ")
+            while block_option[0] not in 'YN':
+                block_option = input("\nSorry, I didn't get that. \nWould you like your encrypted message formatted into blocks of five characters? Y/N: ")
         draw_screen()
         if cipher == 'Keyword':
             keyword = input("\nEnter the keyword you would like to use: ")
@@ -107,32 +115,15 @@ if __name__ == '__main__':
         message = input("\nWhat message would you like to {}? ".format(encrypt_decrypt.lower()))
         draw_screen()
         if cipher == 'Transposition':
+            new_instance = Transposition()
             if encrypt_decrypt == 'Encrypt':
-                new_instance = Transposition()
                 output = new_instance.encrypt(message)
-                if pad_option:
-                    output = use_pad()
-            else:
-                if pad_option:
-                    output = use_pad()
-                new_instance = Transposition()
+            elif encrypt_decrypt == 'Decrypt':
                 output = new_instance.decrypt(message)
-        elif cipher == 'Keyword':
-            if encrypt_decrypt == 'Encrypt':
-                new_instance = Keyword(keyword)
-                output = new_instance.encrypt(message)
-            else:
-                new_instance = Keyword(keyword)
-                output = new_instance.decrypt(message)
-        elif cipher == 'Polybius':
-            if encrypt_decrypt == 'Encrypt':
-                new_instance = Polybius()
-                output = new_instance.encrypt(message)
-            else:
-                new_instance = Polybius()
-                output = new_instance.decrypt(message)
-        if block_option.upper() == 'Y':
-            output = blocks_of_five(output)
+        if cipher == 'Keyword':
+            pass
+        if cipher == 'Polybius':
+            pass
         draw_screen()
         print("Here is your {}ed message: \n".format(encrypt_decrypt.lower()))
         print(output)
@@ -143,4 +134,4 @@ if __name__ == '__main__':
         elif continue_quit.upper() == 'Q':
             break
 
-            HE1TI 6DJOV LLH9X S5J69
+            hwyio aeohr u5134
