@@ -39,6 +39,33 @@ def ciphers_available():
 
         """)
 
+def blocks_of_five(message):
+    message = message.upper()
+    block_message = []
+    for character in message:
+        if character in string.ascii_uppercase:
+            block_message.append(character)
+    if len(block_message) % 5 == 1:
+        block_message.extend(['5', '1', '3', '4'])
+    elif len(block_message) % 5 == 2:
+        block_message.extend(['8', '7', '3'])
+    elif len(block_message) % 5 == 3:
+        block_message.extend(['4', '6'])
+    elif len(block_message) % 5 == 4:
+        block_message.extend(['8'])
+    counter = 5
+    for i in range(int(len(block_message) / 5) - 1):
+        block_message.insert(counter, ' ')
+        counter += 6
+    return ''.join(block_message)
+
+def use_pad():
+    new_instance = OneTimePad()
+    if encrypt_decrypt == 'Encrypt':
+        return new_instance.encrypt(pad_option, output)
+    else:
+        return new_instance.decrypt(pad_option, output)
+
 if __name__ == '__main__':
 
     while True:
@@ -59,6 +86,7 @@ if __name__ == '__main__':
             elif cipher[0].upper() == 'P':
                 cipher = 'Polybius'
             else:
+                cipher = ''
                 draw_screen()
                 ciphers_available()
                 cipher = input("That is not one of the available ciphers. \nWhich cipher would you like to use? ")
@@ -82,7 +110,11 @@ if __name__ == '__main__':
             if encrypt_decrypt == 'Encrypt':
                 new_instance = Transposition()
                 output = new_instance.encrypt(message)
+                if pad_option:
+                    output = use_pad()
             else:
+                if pad_option:
+                    output = use_pad()
                 new_instance = Transposition()
                 output = new_instance.decrypt(message)
         elif cipher == 'Keyword':
@@ -99,13 +131,8 @@ if __name__ == '__main__':
             else:
                 new_instance = Polybius()
                 output = new_instance.decrypt(message)
-        if pad_option:
-            if encrypt_decrypt == 'Encrypt':
-                new_instance = OneTimePad()
-                output = new_instance.encrypt(pad_option, output)
-            else:
-                new_instance = OneTimePad()
-                output = new_instance.decrypt(pad_option, output)
+        if block_option.upper() == 'Y':
+            output = blocks_of_five(output)
         draw_screen()
         print("Here is your {}ed message: \n".format(encrypt_decrypt.lower()))
         print(output)
@@ -115,3 +142,5 @@ if __name__ == '__main__':
             continue
         elif continue_quit.upper() == 'Q':
             break
+
+            HE1TI 6DJOV LLH9X S5J69
