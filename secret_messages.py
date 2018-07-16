@@ -75,63 +75,73 @@ if __name__ == '__main__':
         keyword = ''
         message = ''
         output = ''
-        draw_screen()
-        ciphers_available()
-        cipher = input("Which cipher would you like to use today? ")
-        while cipher[0] not in 'TKP':
+        while cipher == '':
+            draw_screen()
+            ciphers_available()
+            cipher = input("Which cipher would you like to use today? ")
+            if cipher[0].upper() in 'TKP':
+                if cipher[0].upper() == 'T':
+                    cipher = 'Transposition'
+                elif cipher[0].upper() == 'K':
+                    cipher = 'Keyword'
+                elif cipher[0].upper() == 'P':
+                    cipher = 'Polybius'
+            else:
+                while cipher[0].upper() not in 'TKP':
+                    cipher = ''
+                    draw_screen()
+                    ciphers_available()
+                    cipher = input("That is not one of the available ciphers. \nWhich cipher would you like to use? ")
             if cipher[0].upper() == 'T':
                 cipher = 'Transposition'
             elif cipher[0].upper() == 'K':
                 cipher = 'Keyword'
             elif cipher[0].upper() == 'P':
                 cipher = 'Polybius'
-            else:
-                cipher = ''
-                draw_screen()
-                ciphers_available()
-                cipher = input("\nThat is not one of the available ciphers. \nWhich cipher would you like to use? ")
+    draw_screen()
+    encrypt_decrypt = input("\nWould you like to encrypt or decrypt your message? ")
+    if encrypt_decrypt[0].upper() == 'E':
+        encrypt_decrypt = 'Encrypt'
+    elif encrypt_decrypt[0].upper() == 'D':
+        encrypt_decrypt = 'Decrypt'
+    else:
+        encrypt_decrypt = ''
         draw_screen()
-        encrypt_decrypt = input("\nWould you like to encrypt or decrypt your message? ")
-        while encrypt_decrypt[0] not in 'ED':
-            if encrypt_decrypt[0].upper() == 'E':
-                encrypt_decrypt = 'Encrypt'
-            elif encrypt_decrypt[0].upper() == 'D':
-                encrypt_decrypt = 'Decrypt'
-            else:
-                encrypt_decrypt = ''
-                draw_screen()
-                encrypt_decrypt = input("\nSorry, I didn't get that. \nWould you like to encrypt or decrypt your message? ")
-        draw_screen()
-        pad_option = input("\nWould you like to use a one time pad? \nIf yes, enter one now or press 'Enter' to continue. \nOnly letters and numbers will be used for the pad: ")
-        draw_screen()
-        if cipher == 'Keyword' and encrypt_decrypt == 'Encrypt':
+        encrypt_decrypt = input("\nSorry, I didn't get that. \nWould you like to encrypt or decrypt your message? ")
+    draw_screen()
+    pad_option = input("\nWould you like to use a one time pad? \nIf yes, enter one now or press 'Enter' to continue. \nOnly letters and numbers will be used for the pad: ")
+    draw_screen()
+    if cipher == 'Keyword' and encrypt_decrypt == 'Encrypt':
+        while block_option[0] not in 'YN':
             block_option = input("\nWould you like your encrypted message formatted into blocks of five characters? Y/N: ")
-            while block_option[0] not in 'YN':
-                block_option = input("\nSorry, I didn't get that. \nWould you like your encrypted message formatted into blocks of five characters? Y/N: ")
-        draw_screen()
-        if cipher == 'Keyword':
-            keyword = input("\nEnter the keyword you would like to use: ")
-        draw_screen()
-        message = input("\nWhat message would you like to {}? ".format(encrypt_decrypt.lower()))
-        draw_screen()
-        if cipher == 'Transposition':
-            new_instance = Transposition()
-            if encrypt_decrypt == 'Encrypt':
-                output = new_instance.encrypt(message)
-            elif encrypt_decrypt == 'Decrypt':
-                output = new_instance.decrypt(message)
-        if cipher == 'Keyword':
-            pass
-        if cipher == 'Polybius':
-            pass
-        draw_screen()
-        print("Here is your {}ed message: \n".format(encrypt_decrypt.lower()))
-        print(output)
-        continue_quit = input("Would you like to use another cipher? Enter 'Y' to continue or 'Q' to quit: ")
+            block_option = input("\nSorry, I didn't get that. \nWould you like your encrypted message formatted into blocks of five characters? Y/N: ")
+    draw_screen()
+    if cipher == 'Keyword':
+        keyword = input("\nEnter the keyword you would like to use: ")
+    draw_screen()
+    message = input("\nWhat message would you like to {}? ".format(encrypt_decrypt.lower()))
+    draw_screen()
+    if cipher == 'Transposition':
+        new_instance = Transposition()
+        if encrypt_decrypt == 'Encrypt':
+            output = new_instance.encrypt(message)
+        elif encrypt_decrypt == 'Decrypt':
+            output = new_instance.decrypt(message)
+    if cipher == 'Keyword':
+        pass
+    if cipher == 'Polybius':
+        pass
+    draw_screen()
+    print("Here is your {}ed message: \n".format(encrypt_decrypt.lower()))
+    print(output)
+    continue_quit = input("Would you like to use another cipher? Enter 'Y' to continue or 'Q' to quit: ")
+    while continue_quit not in 'YQ':
         if continue_quit.upper() == 'Y':
             clear_screen()
             continue
         elif continue_quit.upper() == 'Q':
             break
-
-            hwyio aeohr u5134
+        else:
+            draw_screen()
+            continue_quit = ''
+            continue_quit = input("\nSorry, I didn't get that. \nWould you like to use another cipher? Enter 'Y' to continue or 'Q' to quit: ")
