@@ -1,5 +1,4 @@
 import os
-import pdb
 import string
 from one_time_pad import OneTimePad
 from keyword_cipher import Keyword
@@ -22,8 +21,9 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 def draw_screen():
+    clear_screen()
     print('_' * 60 + '\n\n' + ' ' * 15 + 'Welcome to the \
-    Cryptographer!\n' + '_' * 60 + '\n')
+Cryptographer!\n' + '_' * 60 + '\n')
     if cipher:
         print("Cipher:", cipher)
     if encrypt_decrypt:
@@ -36,6 +36,7 @@ def draw_screen():
         print("{}ed Message:".format(encrypt_decrypt), output)
 
 def select_cipher():
+    draw_screen()
     print('    Ciphers available:')
     print(
     """
@@ -44,8 +45,8 @@ def select_cipher():
     -Polybius
 
         """)
-    cipher = input("    Which cipher would you like to use? ")
     while cipher[0] not in 'TKP':
+        cipher = input("    Which cipher would you like to use? ")
         if cipher[0].upper() == 'T':
             cipher = 'Transposition'
         elif cipher[0].upper() == 'K':
@@ -53,7 +54,6 @@ def select_cipher():
         elif cipher[0].upper() == 'P':
             cipher = 'Polybius'
         else:
-            clear_screen()
             draw_screen()
             print('    Ciphers available:')
             print(
@@ -63,9 +63,10 @@ def select_cipher():
     -Polybius
 
                 """)
-            cipher = input("    That is not one of the available ciphers. \n    Which cipher would you like to use? ")
-    return cipher
+            cipher = input("That is not one of the available ciphers. \nWhich cipher would you like to use? ")
+
 def select_encrypt_decrypt():
+    draw_screen()
     encrypt_decrypt = input("    Would you like to encrypt or decrypt your message? ")
     if encrypt_decrypt[0].upper() == 'E':
         encrypt_decrypt = 'Encrypt'
@@ -74,8 +75,10 @@ def select_encrypt_decrypt():
     return encrypt_decrypt
 
 def select_message():
+    draw_screen()
     message = input("    What is the message you would like to {}".format(encrypt_decrypt.lower()))
     return message
+
 def blocks_of_five(message):
     message = message.upper()
     block_message = []
@@ -97,16 +100,19 @@ def blocks_of_five(message):
     print(''.join(block_message))
 
 def select_pad():
-    pad_option = input("    Would you like to use a one time pad? \
+    draw_screen()
+    pad_option = input("    Would you like to use a one time pad? \n\
     If you do you may enter it now or press 'Enter' to continue without one: ")
-    return pad_option
 
 def select_block():
+    draw_screen()
     block_option = input("    Would you like to format your message into blocks \
-    of five? If you do you will lose the spaces and punctuation in your \
-    message. Y/N? ")
+of five? If you do you will lose the spaces and punctuation in your \
+message. Y/N? ")
+    return block_option
 
 def continue_quit():
+    draw_screen()
     continue_quit = input("    Would you like to use another cipher? If you do enter 'Y' or enter 'Q' to quit: ")
 
 
@@ -114,7 +120,6 @@ clear_screen()
 draw_screen()
 select_cipher()
 continue_quit()
-
 
 """
 To Do:
