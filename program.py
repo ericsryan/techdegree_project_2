@@ -110,7 +110,10 @@ def continue_quit():
     continue_quit = input("    Would you like to use another cipher? If you do enter 'Y' or enter 'Q' to quit: ")
 
 
-
+clear_screen()
+draw_screen()
+select_cipher()
+continue_quit()
 
 
 """
