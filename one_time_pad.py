@@ -1,16 +1,30 @@
+"""Encryption and decryption using a one-time padself.
+
+In cryptography, the one-time pad is an encryption technique that cannot be
+cracked, but requires the use of a one-time pre-shared key the same size as, or
+longer than, the message being sent. In this technique, a plaintext is paired
+with a random secret key (also referred to as a one-time pad). Then, each bit
+or character of the plaintext is encrypted by combining it with the
+corresponding bit or character from the pad using modular addition. If the key
+is truly random, is at least as long as the plaintext, is never reused in whole
+or in part, and is kept completely secret, then the resulting ciphertext will
+be impossible to decrypt or break.
+"""
+
 import string
+
 from ciphers import Cipher
 
 class OneTimePad(Cipher):
 
-
     def __init__(self, pad, message):
+        """Generate dictionaries used to encrypt and decrypt the message."""
         self.message = message.upper()
         # Generates dictionaries that match characters to numerical values
-        self.character_dict = {character: num for num, character in \
-        zip(range(1, 37), string.ascii_uppercase + string.digits)}
-        self.num_dict = {num: character for character, num in \
-        zip(string.ascii_uppercase + string.digits, range(1, 37))}
+        self.character_dict = ({character: num for num, character
+                               in zip(range(0, 26), string.ascii_uppercase)})
+        self.num_dict = ({num: character for character, num in
+                         zip(string.ascii_uppercase, range(0, 26))})
         # Sanitizes pad input and multiplies it to match message length
         new_pad = pad.upper()
         self.full_pad = ''
@@ -22,44 +36,27 @@ class OneTimePad(Cipher):
             self.full_pad = self.full_pad * multiply_by
 
     def encrypt(self):
-        # Applies pad to letters and numerals in the message
-        encrypted_char_list = []
-        encrypted_message = ''
+        """Encrypt the message using the one-time pad."""
+        output = []
         pad_index = 0
         for character in self.message:
-            if character not in string.ascii_uppercase + string.digits:
-                encrypted_char_list.append(character)
-            else:
-                (encrypted_char_list.append(str(self.character_dict[character]
-                + self.character_dict[self.full_pad[pad_index]])))
+            if character in string.ascii_uppercase:
+                output.append(self.num_dict[((self.character_dict[character]
+                + self.character_dict[self.full_pad[pad_index]]) % 26)])
                 pad_index += 1
-        # Write encoded characters to the message string
-        for character in encrypted_char_list:
-            try:
-                if int(character) in range(0, 74):
-                    mod_char = int(character) % 36
-                    encrypted_message += self.num_dict[mod_char]
-            except:
-                encrypted_message += character
-        return encrypted_message
+            else:
+                output.append(character)
+        return ''.join(output)
 
     def decrypt(self):
-        # Applies pad to letters and numerals in the message
-        decrypted_char_list = []
-        decrypted_message = ''
+        """Decrypt the message using the one-time pad.""""
+        output = []
         pad_index = 0
         for character in self.message:
-            if character not in string.ascii_uppercase + string.digits:
-                decrypted_char_list.append(character)
-            else:
-                (decrypted_char_list.append(str(self.character_dict[character]
-                - self.character_dict[self.full_pad[pad_index]])))
+            if character in string.ascii_uppercase:
+                output.append(self.num_dict[(((self.character_dict[character]
+                - self.character_dict[self.full_pad[pad_index]]) + 26) % 26)])
                 pad_index += 1
-        # Write decoded characters to the message string
-        for character in decrypted_char_list:
-            try:
-                mod_char = (int(character) + 36) % 36
-                decrypted_message += self.num_dict[mod_char]
-            except:
-                decrypted_message += character
-        return decrypted_message
+            else:
+                output.append(character)
+        return ''.join(output)
