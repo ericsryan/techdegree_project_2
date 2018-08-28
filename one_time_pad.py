@@ -15,7 +15,9 @@ import string
 
 from ciphers import Cipher
 
+
 class OneTimePad(Cipher):
+    """Encrypt and decrypt the message using a one-time pad."""
 
     def __init__(self, pad, message):
         """Generate dictionaries used to encrypt and decrypt the message."""
@@ -42,20 +44,22 @@ class OneTimePad(Cipher):
         for character in self.message:
             if character in string.ascii_uppercase:
                 output.append(self.num_dict[((self.character_dict[character]
-                + self.character_dict[self.full_pad[pad_index]]) % 26)])
+                              + self.character_dict[self.full_pad[pad_index]])
+                              % 26)])
                 pad_index += 1
             else:
                 output.append(character)
         return ''.join(output)
 
     def decrypt(self):
-        """Decrypt the message using the one-time pad.""""
+        """Decrypt the message using the one-time pad."""
         output = []
         pad_index = 0
         for character in self.message:
             if character in string.ascii_uppercase:
                 output.append(self.num_dict[(((self.character_dict[character]
-                - self.character_dict[self.full_pad[pad_index]]) + 26) % 26)])
+                              - self.character_dict[self.full_pad[pad_index]])
+                              + 26) % 26)])
                 pad_index += 1
             else:
                 output.append(character)
