@@ -66,3 +66,4 @@ class OneTimePad(Cipher):
             else:
                 output.append(character)
         return ''.join(output)
+#
