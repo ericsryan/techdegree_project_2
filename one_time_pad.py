@@ -24,9 +24,11 @@ class OneTimePad(Cipher):
         self.message = message.upper()
         # Generates dictionaries that match characters to numerical values
         self.character_dict = ({character: num for num, character
-                               in zip(range(0, 26), string.ascii_uppercase)})
+                               in zip(range(0, 36),
+                                      string.ascii_uppercase + string.digits)})
         self.num_dict = ({num: character for character, num in
-                         zip(string.ascii_uppercase, range(0, 26))})
+                         zip(string.ascii_uppercase +
+                             string.digits, range(0, 36))})
         # Sanitizes pad input and multiplies it to match message length
         new_pad = pad.upper()
         self.full_pad = ''
@@ -42,10 +44,10 @@ class OneTimePad(Cipher):
         output = []
         pad_index = 0
         for character in self.message:
-            if character in string.ascii_uppercase:
+            if character in string.ascii_uppercase + string.digits:
                 output.append(self.num_dict[((self.character_dict[character]
                               + self.character_dict[self.full_pad[pad_index]])
-                              % 26)])
+                              % 36)])
                 pad_index += 1
             else:
                 output.append(character)
@@ -56,10 +58,10 @@ class OneTimePad(Cipher):
         output = []
         pad_index = 0
         for character in self.message:
-            if character in string.ascii_uppercase:
+            if character in string.ascii_uppercase + string.digits:
                 output.append(self.num_dict[(((self.character_dict[character]
                               - self.character_dict[self.full_pad[pad_index]])
-                              + 26) % 26)])
+                              + 36) % 36)])
                 pad_index += 1
             else:
                 output.append(character)

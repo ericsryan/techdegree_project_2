@@ -14,17 +14,16 @@ class Polybius(Cipher):
     """Encrypt or decrypt a message using the Polybius cipher."""
 
     def __init__(self, message):
-        """Generates a 6x6 grid populated by the alphabet and digits."""
+        """Generate a 6x6 grid populated by the alphabet and digits."""
         self.message = message.upper()
-        self.table = [str(x) + str(y) for x in range(1, 7) for y in range(1, 7)]
+        self.table = ([str(x) + str(y) for x in range(1, 7)
+                      for y in range(1, 7)])
         self.alpha_nums = string.ascii_uppercase + string.digits
         self.polybius_encode = dict(zip(self.alpha_nums, self.table))
         self.polybius_decode = dict(zip(self.table, self.alpha_nums))
 
     def encrypt(self):
-        """Encrypt the message by replacing each letter with a two digit
-        representation.
-        """
+        """Encrypt the message using the Polybius cipher."""
         output = []
         for character in self.message:
             if character in string.ascii_uppercase + string.digits:
@@ -34,9 +33,7 @@ class Polybius(Cipher):
         return ''.join(output)
 
     def decrypt(self):
-        """Decrypt the message by replacing the two digit representations with
-        their corresponding letters.
-        """
+        """Decrypt the message using the Polybius cipher."""
         output = ''
         input = []
         characters = []
