@@ -211,15 +211,19 @@ if __name__ == '__main__':
                 if block_option.upper() == 'Y':
                     output = five_keyword(output)
             else:
-                if pad_option:
+                if pad_option != 'Not in use.':
                     output = pad_decrypt(message)
-                new_instance = Keyword(keyword, output)
+                    new_instance = Keyword(keyword, output)
+                else:
+                    new_instance = Keyword(keyword, message)
                 output = new_instance.decrypt()
         if cipher == 'Polybius':
             if encrypt_decrypt == 'Encrypt':
                 if pad_option != 'Not in use.':
                     output = pad_encrypt(message)
-                new_instance = Polybius(output)
+                    new_instance = Polybius(output)
+                else:
+                    new_instance = Polybius(message)
                 output = new_instance.encrypt()
                 if block_option.upper() == 'Y':
                     output = five_polybius(output)
@@ -235,9 +239,11 @@ if __name__ == '__main__':
                 if pad_option != 'Not in use.':
                     output = pad_encrypt(output)
             else:
-                if pad_option:
+                if pad_option != 'Not in use.':
                     output = pad_decrypt(message)
-                new_instance = Transposition(output)
+                    new_instance = Transposition(output)
+                else:
+                    new_instance = Transposition(message)
                 output = new_instance.decrypt()
         # Continue/Quit
         draw_screen()
