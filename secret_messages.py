@@ -63,7 +63,8 @@ def five_keyword(message):
             if counter == 5:
                 block_message.append(' ')
                 counter = 0
-    block_message.append('-' * (5 - (len(block_message) % 6)))
+    if counter > 0:
+        block_message.append('-' * (5 - counter))
     return ''.join(block_message)
 
 
@@ -78,7 +79,8 @@ def five_polybius(message):
             if counter == 10:
                 block_message.append(' ')
                 counter = 0
-    block_message.append('-' * (10 - (len(block_message) % 11)))
+    if counter > 0:
+        block_message.append('-' * (10 - counter))
     return ''.join(block_message)
 
 
@@ -152,11 +154,11 @@ if __name__ == '__main__':
                                "\nOtherwise, enter 'N' for no. "
                                )
             if pad_option.upper() == 'N':
-                pad_option = "Not in use."
+                pad_option = "Not in use"
             if pad_option == '':
                 draw_screen()
                 print("You didn't enter anything.")
-            if pad_option != 'Not in use.':
+            if pad_option != 'Not in use':
                 for character in pad_option:
                     if (character.upper() not in
                             string.ascii_uppercase + string.digits):
@@ -171,7 +173,9 @@ if __name__ == '__main__':
                 encrypt_decrypt == 'Encrypt'):
             while block_option == '':
                 block_option = input("Would you like to format your message"
-                                     " into blocks of five? Y/N: "
+                                     " into blocks of five?\n(Punctuation and"
+                                     " spaces will be removed from the"
+                                     " encrypted\nmessage.) Y/N: "
                                      )
                 if block_option.upper() in 'YN':
                     continue
@@ -196,6 +200,12 @@ if __name__ == '__main__':
         # Enter the message.
         draw_screen()
         while message == '':
+            if ((cipher == 'Keyword' or cipher == 'Polybius') and
+                    encrypt_decrypt == 'Decrypt'):
+                print("If the message you wish to decrypt was formatted into"
+                      " blocks of\nfive you may omit the spaces and dashes when"
+                      " entering the message."
+                )
             message = input("Enter the message that you would like"
                             " to {}: ".format(encrypt_decrypt.lower())
                             )
