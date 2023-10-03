@@ -1,4 +1,4 @@
-"""Encryption and decryption using a one-time padself.
+"""Encryption and decryption using a one-time pad.
 
 In cryptography, the one-time pad is an encryption technique that cannot be
 cracked, but requires the use of a one-time pre-shared key the same size as, or

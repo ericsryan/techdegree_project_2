@@ -105,7 +105,7 @@ if __name__ == '__main__':
           " message. Your\nmessage can be further encrypted"
           " by using a\none-time pad of your choosing.\n\nEnjoy the program!"
           )
-    input("\nPress 'Enter to continue.'")
+    input("\nPress 'Enter' to continue.")
 
     while True:
         cipher = ''
@@ -120,12 +120,12 @@ if __name__ == '__main__':
         draw_screen()
         ciphers_available()
         while cipher == '':
-            cipher = input("What cipher would you like to use? ")
-            if cipher[0:3].upper() == 'KEY':
+            cipher = input("Which cipher would you like to use? ")
+            if cipher[:3].upper() == 'KEY':
                 cipher = 'Keyword'
-            elif cipher[0:4].upper() == 'POLY':
+            elif cipher[:4].upper() == 'POLY':
                 cipher = 'Polybius'
-            elif cipher[0:4].upper() == 'TRAN':
+            elif cipher[:4].upper() == 'TRAN':
                 cipher = 'Transposition'
             else:
                 cipher = ''
